@@ -550,8 +550,8 @@ const additives = [
     {
         code: 'E102',
         names: {
-            en: 'Curcumin',
-            lt: 'Kurkuminas'
+            en: 'Tartrazine',
+            lt: 'Tartrazinas'
         },
         types: [t.v]
     },
@@ -3915,6 +3915,12 @@ const additives = [
     }
 ];
 
+additives.push({
+    code: null,
+    names: { en: 'Casein protein', lt: 'Kazeino baltymai' },
+    types: [t.vg]
+});
+
 const addsIndex = R.indexBy(R.prop('code'), additives);
 
 addsIndex['E120'].names.lt = 'Kochinelas, karmino rūgštis, karminas';
@@ -4499,5 +4505,7 @@ addsIndex['E1520'].names.en = 'Propylene glycol';
 
 // console.log(_.join(_.map(_.filter(additives, (add) => add.names.lt === ''), (add) => `${add.code} '${add.names.en}' '${add.names.lt}'`), '\n'));
 // console.log(JSON.stringify(_.map(_.filter(additives, (add) => add.names.en === ''), (add) => add.code)))
+
+addsIndex['E1412'].names.lt = 'Dikrakmolo fosfatas';
 
 export default additives;

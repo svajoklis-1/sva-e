@@ -16,16 +16,24 @@ class Application extends Component
         };
     }
 
+    onSearchChange (ev)
+    {
+        this.setState({ search: ev.target.value });
+        window.scrollTo(0, 0);
+    }
+
     renderSearch ()
     {
         return (
-            <form className="mt-3">
-                <div className="form-group">
-                    <input type="text" className="form-control" id="search" placeholder="Ieškokite priedų"
-                        value={this.state.search || ''} onChange={(ev) => this.setState({ search: ev.target.value })}
-                    />
-                </div>
-            </form>
+            <section id="s-search">
+                <form>
+                    <div className="form-group">
+                        <input type="text" className="form-control" id="search" placeholder="Ieškokite priedų"
+                            value={this.state.search || ''} onChange={(ev) => this.onSearchChange(ev)}
+                        />
+                    </div>
+                </form>
+            </section>
         )
     }
 
@@ -35,7 +43,7 @@ class Application extends Component
 
         return (
             <div key={additive.code} className="list-group-item">
-                <div className="additive-code"><strong>{additive.code}</strong></div>
+                { additive.code ? <div className="additive-code"><strong>{additive.code}</strong></div> : null }
                 <div className="additive-names">
                     {names.lt ? (
                         <div className="additive-names__name additive-names__name--lt">
@@ -108,6 +116,7 @@ class Application extends Component
         }
 
         let additivesList = searchResults.length === 0 ? _.sortBy(additives, 'code') : searchResults;
+        let totalResults = additivesList.length;
 
         if (additivesList.length > threshold)
         {
@@ -116,24 +125,26 @@ class Application extends Component
         }
 
         return (
-            <React.Fragment>
-                <div className="list-group">
-                    {_.map(additivesList, (additive) => this.renderAdditive(additive))}
+            <section id="s-results">
+                <div className="container-fluid text-sm-left">
+                    <div className="list-group">
+                        {_.map(additivesList, (additive) => this.renderAdditive(additive))}
+                    </div>
+                    {moreAvailable ? (
+                        <div className="text-center m-3">{totalResults - threshold} more results hidden, {totalResults} total items in database</div>
+                    ) : null}
                 </div>
-                {moreAvailable ? (
-                    <div className="text-center m-3">And more...</div>
-                ) : null}
-            </React.Fragment>
+            </section>
         );
     }
 
     render ()
     {
         return (
-            <div className="container-fluid text-sm-left">
+            <React.Fragment>
                 {this.renderSearch()}
                 {this.renderAdditives()}
-            </div>
+            </React.Fragment>
         )
     }
 }
