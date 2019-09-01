@@ -131,7 +131,7 @@ class Application extends Component
                         {_.map(additivesList, (additive) => this.renderAdditive(additive))}
                     </div>
                     {moreAvailable ? (
-                        <div className="text-center m-3">{totalResults - threshold} more results hidden, {totalResults} total items in database</div>
+                        <div className="text-center m-3">{totalResults - threshold} rezultatų paslėpta, {totalResults} viso elementų duomenų bazėje</div>
                     ) : null}
                 </div>
             </section>
